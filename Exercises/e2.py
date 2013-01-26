@@ -56,7 +56,7 @@ def closest_time(time1, time2, actual_time):
 
     >>> closest_time('11:59', '12:01', '12:00')
     '11:59'
-    >>> closest_time('1:40', '13:40', '5:40')
+    >>> closest_time('01:40', '13:40', '05:40')
     '1:40'
     '''
 
