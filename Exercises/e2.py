@@ -41,6 +41,8 @@ def time_of_day(hours, minutes):
         return MORNING
     elif hours == 12 and minutes == 0:
         return NOON
+    elif hours == 12 and not minutes == 0:
+        return AFTERNOON
     elif 12 < hours < 17:
         return AFTERNOON
     else:
@@ -48,6 +50,16 @@ def time_of_day(hours, minutes):
 
 
 def closest_time(time1, time2, actual_time):
+    ''' (str, str, str) -> str
+
+    Return the parameter between time1 and time2 that is closest to actual_time.
+
+    >>> closest_time('11:59', '12:01', '12:00')
+    '11:59'
+    >>> closest_time('1:40', '13:40', '5:40')
+    '1:40'
+    '''
+
     time1_mins = int(time1[:2]) * 60 + int(time1[-2:])
     time2_mins = int(time2[:2]) * 60 + int(time2[-2:])
     actual_time_mins = int(actual_time[:2]) * 60 + int(actual_time[-2:]) 
@@ -57,6 +69,16 @@ def closest_time(time1, time2, actual_time):
 
 
 def sum_digits(string):
+    ''' (str) -> int
+
+    Return the sum of the values of each integer digit that appears in string.
+
+    >>> sum_digits('CSC108H1S')
+    10
+    >>> sum_digits('2')
+    2
+    '''
+
     total = 0
     for e in string:
         if is_a_digit(e):
