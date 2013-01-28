@@ -58,8 +58,7 @@ def closest_time(time1, time2, actual_time):
     '11:59'
     >>> closest_time('01:40', '13:40', '05:40')
     '1:40'
-    '''
-
+    ''' 
     time1_mins = int(time1[:2]) * 60 + int(time1[-2:])
     time2_mins = int(time2[:2]) * 60 + int(time2[-2:])
     actual_time_mins = int(actual_time[:2]) * 60 + int(actual_time[-2:]) 
