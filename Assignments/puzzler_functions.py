@@ -76,5 +76,61 @@ def game_over(puzzle, view, current_selection):
 
 
 def get_view(puzzle):
-    """"""
-    pass
+    """(str) -> str
+    
+    Return the given puzzle with each alphabetic character replaced by the
+    HIDDEN character.
+
+
+    >>> get_view('Puzzle')
+    '^^^^^^'
+    >>> get_view('Test Case')
+    '^^^^ ^^^^'
+    """
+    view = ''
+    for letter in puzzle:
+        if letter.isalpha():
+            view = view + HIDDEN
+        else:
+            view = view + letter
+    return view
+
+
+def update_view(puzzle, view, letter):
+    """(str, str, str) -> str
+    
+    Return the view of the puzzle with each occurrence of the letter in the 
+    puzzle revealed.
+
+
+    >>> update_view('Test Case', '^^^^ ^^^^', 'e')
+    '^e^^ ^^^e'
+    >>> update_view('Letters', '^^^^^^^', 't')
+    '^^tt^^^'
+    """
+    for i in range(len(puzzle)):
+        if puzzle[i] == letter:
+            view = view[:i] + letter + view[i + 1:]
+    return view
+
+
+def make_guessed(unguessed_consonants, unguessed_vowels, letter):
+    """(str, str, str) -> (str, str)
+    
+    Return unguessed_consonants and unguessed_vowels with the letter removed
+    from whichever string, if any, contains it.
+
+
+    >>> make_guessed('cdfgt', 'aeiou', 'a')
+    ('cdfgt', 'eiou')
+    >>> make_guessed('cdfgt', 'aeiou', 'c')
+    ('dfgt', 'aeiou')
+    >>> make_guessed('cdfgt', 'aeiou', 'w')
+    ('cdfgt', 'aeiou')
+    """
+    if letter in unguessed_consonants:
+        return (unguessed_consonants.replace(letter, ''), unguessed_vowels)
+    elif letter in unguessed_vowels:
+        return (unguessed_consonants, unguessed_vowels.replace(letter, ''))
+    else:
+        return (unguessed_consonants, unguessed_vowels)
