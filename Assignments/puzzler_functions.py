@@ -53,3 +53,28 @@ def is_win(puzzle, view):
     False
     """
     # put the function body here
+    return puzzle == view
+
+
+def game_over(puzzle, view, current_selection):
+    """(str, str, str) -> bool
+    
+    Return True iff the puzzle is the same as the view, or the selection 
+    is QUIT.
+
+
+    >>> game_over('banana', 'banana', 'Q')
+    True
+    >>> game_over('apple', 'a^^le', 'C')
+    False
+    >>> game_over('banana', 'banana', 'C')
+    True
+    >>> game_over('banana', '^anana', 'Q')
+    True
+    """
+    return is_win(puzzle, view) or current_selection == QUIT
+
+
+def get_view(puzzle):
+    """"""
+    pass
