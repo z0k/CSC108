@@ -1,4 +1,4 @@
-"""Phrase Puzzler: functions"""
+
 
 import random
 
@@ -249,9 +249,9 @@ def half_revealed(view):
     revealed.
     
     
-    >>> half_revealed('he^^o ^^e^e')
+    >>> half_revealed('^e^^o t^e^e')
     True
-    >>> half_revealed('h^^^^ ^^^^^')
+    >>> half_revealed('h^ll^ ^h^^^')
     False
     """
     return  view.count(HIDDEN) <= get_view(view).count(HIDDEN) / 2.
