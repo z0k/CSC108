@@ -272,6 +272,8 @@ def is_match(puzzle, view):
     """
     i = 0
     while i < len(puzzle):
+        if len(puzzle) != len(view):
+            return False
         if view[i].isalpha():
             if puzzle[i] != view[i]:
                 return False
