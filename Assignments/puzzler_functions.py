@@ -148,7 +148,7 @@ def calculate_score(current_score, num_occurrences, letter_type):
     5
     >>> calculate_score(5, 10, CONSONANT)
     15
-    >>> calculate_score(5, 2, 'V')
+    >>> calculate_score(5, 2, VOWEL)
     4
     """
     if letter_type == CONSONANT:
@@ -187,15 +187,15 @@ def update_score(playerone_score, playertwo_score, new_score, current_player):
     the current_player, as the tuple (new_score, current_player)
     
     
-    >>> update_score(10, 0, 2, PLAYER_ONE)
+    >>> update_score(10, 0, 12, PLAYER_ONE)
     (12, 0)
     >>> update_score(10, 0, 2, PLAYER_TWO)
     (10, 2)
     """
     if current_player == PLAYER_ONE:
-        return (new_score + playerone_score, playertwo_score)
+        return (new_score, playertwo_score)
     elif current_player == PLAYER_TWO:
-        return (playerone_score, new_score + playertwo_score)
+        return (playerone_score, new_score)
                      
 
 def next_player(current_player, num_occurrences):
@@ -257,7 +257,6 @@ def half_revealed(view):
     return  view.count(HIDDEN) <= get_view(view).count(HIDDEN) / 2.
 
 
-#This function is definitely not correct. Needs more work.
 def is_match(puzzle, view):
     """(str, str) -> bool
     
