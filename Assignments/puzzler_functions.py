@@ -63,13 +63,13 @@ def game_over(puzzle, view, current_selection):
     is QUIT.
 
 
-    >>> game_over('banana', 'banana', 'Q')
+    >>> game_over('banana', 'banana', QUIT)
     True
-    >>> game_over('apple', 'a^^le', 'C')
+    >>> game_over('apple', 'a^^le', CONSONANT)
     False
-    >>> game_over('banana', 'banana', 'C')
+    >>> game_over('banana', 'banana', CONSONANT)
     True
-    >>> game_over('banana', '^anana', 'Q')
+    >>> game_over('banana', '^anana', QUIT)
     True
     """
     return is_win(puzzle, view) or current_selection == QUIT
@@ -144,9 +144,9 @@ def calculate_score(current_score, num_occurrences, letter_type):
     from current_score if letter_type is VOWEL.
 
 
-    >>> calculate_score(0, 5, 'C')
+    >>> calculate_score(0, 5, CONSONANT)
     5
-    >>> calculate_score(5, 10, 'C')
+    >>> calculate_score(5, 10, CONSONANT)
     15
     >>> calculate_score(5, 2, 'V')
     4
@@ -187,9 +187,15 @@ def update_score(playerone_score, playertwo_score, new_score, current_player):
     the current_player, as the tuple (new_score, current_player)
     
     
-    >>> update_score(10, 0, ???)
+    >>> update_score(10, 0, 2, PLAYER_ONE)
+    (12, 0)
+    >>> update_score(10, 0, 2, PLAYER_TWO)
+    (10, 2)
     """
-    pass
+    if current_player == PLAYER_ONE:
+        return (new_score + playerone_score, playertwo_score)
+    elif current_player == PLAYER_TWO:
+        return (playerone_score, new_score + playertwo_score)
                      
 
 def next_player(current_player, num_occurrences):
@@ -249,3 +255,29 @@ def half_revealed(view):
     False
     """
     return  view.count(HIDDEN) <= get_view(view).count(HIDDEN) / 2.
+
+
+#This function is definitely not correct. Needs more work.
+def is_match(puzzle, view):
+    """(str, str) -> bool
+    
+    Return True iff view could be a view of puzzle. 
+
+    
+    >>> is_match('csc', 'c^^')
+    False
+    >>> is_match('csc', 'c^c')
+    True
+    >>> is_match('csc', 'cc^')
+    False
+    """
+    i = 0
+    while i < len(puzzle):
+        if view[i].isalpha():
+            if puzzle[i] != view[i]:
+                return False
+            if puzzle.count(puzzle[i]) != view.count(view[i]):
+                return False
+        i += 1
+    return True
+
