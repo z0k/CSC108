@@ -167,15 +167,15 @@ def finalize_score(puzzle, view, unguessed_consonants, current_score):
     
 
     >>> finalize_score('hello there', 'he^^o ^^e^e', 'bcdlthr', 0)
-    8
+    10
     >>> finalize_score('which ones count', '^^^^^ ^^^^ ^^^^^', CONSONANTS, 2)
-    12
+    20
     """
     j  = 0
     for i in range(len(puzzle)):
         if (not puzzle[i] == view[i]) and (puzzle[i] in unguessed_consonants):
-            guess = make_guessed(unguessed_consonants, '', puzzle[i])
-            unguessed_consonants = guess[0]
+            #guess = make_guessed(unguessed_consonants, '', puzzle[i])
+            #unguessed_consonants = guess[0]
             j += 1
     return j * CONSONANT_BONUS + current_score
     
