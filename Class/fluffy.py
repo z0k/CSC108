@@ -4,4 +4,3 @@ def all_fluffy(s):
         if e not in 'fluffy':
             return False
     return True
-
