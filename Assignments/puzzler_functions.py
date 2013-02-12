@@ -220,7 +220,6 @@ def finalize_score(puzzle, view, unguessed_consonants, current_score):
     return j * CONSONANT_BONUS + current_score
     
 
-#Add a couple more examples to docstring.
 def update_score(playerone_score, playertwo_score, new_score, current_player):
     """(int, int, int, str) -> (int, int)
     
@@ -232,6 +231,12 @@ def update_score(playerone_score, playertwo_score, new_score, current_player):
     (12, 0)
     >>> update_score(10, 0, 2, PLAYER_TWO)
     (10, 2)
+    >>> update_score(0, 0, 0, PLAYER_ONE)
+    (0, 0)
+    >>> update_score(0, 10, 12, PLAYER_ONE)
+    (12, 10)
+    >>> update_score(0, 10, 12, PLAYER_TWO)
+    (0, 12)
     """
     if current_player == PLAYER_ONE:
         return (new_score, playertwo_score)
@@ -312,7 +317,6 @@ def half_revealed(view):
     return  view.count(HIDDEN) <= get_view(view).count(HIDDEN) / 2.
 
 
-#Check this function.
 def is_match(puzzle, view):
     """(str, str) -> bool
     
@@ -325,11 +329,21 @@ def is_match(puzzle, view):
     True
     >>> is_match('csc', 'cc^')
     False
+    >>> is_match('', '^')
+    False
+    >>> is_match('', 'a')
+    False
+    >>> is_match('', '')
+    True
+    >>> is_match('these are exactly the same', 'these are exactly the same')
+    True
+    >>> is_match('c^^c^', 'cc^^^')
+    False
     """
     i = 0
+    if len(puzzle) != len(view):
+        return False
     while i < len(puzzle):
-        if len(puzzle) != len(view):
-            return False
         if view[i].isalpha():
             if puzzle[i] != view[i]:
                 return False
