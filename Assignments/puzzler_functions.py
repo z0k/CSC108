@@ -65,8 +65,8 @@ def is_win(puzzle, view):
 
 def game_over(puzzle, view, current_selection):
     """(str, str, str) -> bool
-    
-    Return True iff puzzle is the same as view, or the selection 
+
+    Return True iff puzzle is the same as view, or the selection
     is QUIT.
 
 
@@ -86,7 +86,7 @@ def game_over(puzzle, view, current_selection):
 
 def get_view(puzzle):
     """(str) -> str
-    
+
     Return puzzle with each alphabetic character replaced by the
     HIDDEN character.
 
@@ -115,8 +115,8 @@ def get_view(puzzle):
 
 def update_view(puzzle, view, letter):
     """(str, str, str) -> str
-    
-    Return view of the puzzle with each occurrence letter in 
+
+    Return view of the puzzle with each occurrence letter in
     puzzle revealed.
 
 
@@ -140,7 +140,7 @@ def update_view(puzzle, view, letter):
 
 def make_guessed(unguessed_consonants, unguessed_vowels, letter):
     """(str, str, str) -> (str, str)
-    
+
     Return unguessed_consonants and unguessed_vowels with letter removed
     from whichever string, if any, contains it.
 
@@ -167,7 +167,7 @@ def make_guessed(unguessed_consonants, unguessed_vowels, letter):
 
 def calculate_score(current_score, num_occurrences, letter_type):
     """(int, int, str) -> int
-    
+
     Return the new score by adding one point per num_occurrences of the letter
     to current_score if letter_type is CONSONANT, or by deducting VOWEL_PRICE
     from current_score if letter_type is VOWEL.
@@ -192,11 +192,11 @@ def calculate_score(current_score, num_occurrences, letter_type):
 
 def finalize_score(puzzle, view, unguessed_consonants, current_score):
     """(str, str, str, int) -> int
-    
+
     Return the final score, which is calculated by adding CONSONANT_BONUS to
     current_score for each unguessed consonants from the puzzle that is still
-    hidden in the view. 
-    
+    hidden in the view.
+
 
     >>> finalize_score('hello there', 'he^^o ^^e^e', 'bcdlthr', 0)
     10
@@ -209,7 +209,7 @@ def finalize_score(puzzle, view, unguessed_consonants, current_score):
     >>> finalize_score('dogs', '^^^^', '', 0)
     0
     """
-    j  = 0
+    j = 0
     for i in range(len(puzzle)):
         #Check if character is hidden AND if the consonant has not already
         #been guessed.
@@ -218,15 +218,15 @@ def finalize_score(puzzle, view, unguessed_consonants, current_score):
             #unguessed_consonants = guess[0]
             j += 1
     return j * CONSONANT_BONUS + current_score
-    
+
 
 def update_score(playerone_score, playertwo_score, new_score, current_player):
     """(int, int, int, str) -> (int, int)
-    
-    Return an updated playerone_score or playertwo_score, depending on who is 
+
+    Return an updated playerone_score or playertwo_score, depending on who is
     the current_player, as the tuple (new_score, current_player).
-    
-    
+
+
     >>> update_score(10, 0, 12, PLAYER_ONE)
     (12, 0)
     >>> update_score(10, 0, 2, PLAYER_TWO)
@@ -242,11 +242,11 @@ def update_score(playerone_score, playertwo_score, new_score, current_player):
         return (new_score, playertwo_score)
     elif current_player == PLAYER_TWO:
         return (playerone_score, new_score)
-                     
+
 
 def next_player(current_player, num_occurrences):
     """(str, int) -> str
-                     
+
     Return the next player, depending on who the current_player is, and if
     they guessed at least one num_occurrences.
 
@@ -270,8 +270,8 @@ def next_player(current_player, num_occurrences):
 
 def guess_letter(unguessed_consonants, difficulty):
     """(str, str) -> str
-    
-    Return the consonant to be guessed next by the computer player. If 
+
+    Return the consonant to be guessed next by the computer player. If
     difficulty is EASY, the guess is randomly selected. If difficulty is
     HARD, the consonant to guess is the first consonant in PRIORITY_CONSONANTS
     that occurs in unguessed_consonants.
@@ -295,14 +295,14 @@ def guess_letter(unguessed_consonants, difficulty):
             if e in unguessed_consonants:
                 return e
 
-    
+
 def half_revealed(view):
     """(str) -> bool
-    
+
     Return True iff at least half of the alphabetic characters in the view are
     revealed.
-    
-    
+
+
     >>> half_revealed('^e^^o t^e^e')
     True
     >>> half_revealed('h^ll^ ^h^^^')
@@ -314,15 +314,15 @@ def half_revealed(view):
     >>> half_revealed('a')
     True
     """
-    return  view.count(HIDDEN) <= get_view(view).count(HIDDEN) / 2.
+    return view.count(HIDDEN) <= get_view(view).count(HIDDEN) / 2.
 
 
 def is_match(puzzle, view):
     """(str, str) -> bool
-    
-    Return True iff view could be a view of puzzle. 
 
-    
+    Return True iff view could be a view of puzzle.
+
+
     >>> is_match('csc', 'c^^')
     False
     >>> is_match('csc', 'c^c')
