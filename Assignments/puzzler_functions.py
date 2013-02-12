@@ -1,4 +1,4 @@
-import doctest
+#import doctest
 import random
 
 
@@ -299,7 +299,7 @@ def guess_letter(unguessed_consonants, difficulty):
 def half_revealed(view):
     """(str) -> bool
 
-    Return True iff at least half of the alphabetic characters in the view are
+    Return True iff at least half of the alphabetic characters in view are
     revealed.
 
 
